@@ -3,10 +3,16 @@ import java.util.*;
 
 public class BOJ1918 {
     private static int getPriority(char ch) {
-        if(ch == '(') return 0;
-        else if(ch == '*' || ch == '/') return 1;
-        else if(ch == '+' || ch == '-') return 2;
-        else return 3;
+        switch(ch) {
+            case '*' :
+            case '/' :
+                return 2;
+            case '+' :
+            case '-' :
+                return 1;
+            default :
+                return 0;
+        }
     }
 
     public static void main(String[] args) throws IOException {
