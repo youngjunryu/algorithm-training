@@ -43,16 +43,16 @@ public class SWEA4006 {
     }
 
     private static int find(int p) {
-        if(p != root[p])
-            return find(root[p]);
-        return p;
+        if(p == root[p])
+            return p;
+        return root[p] = find(root[p]);
     }
 
     private static void union(int p1, int p2) {
-        if(p1 < p2)
-            root[p2] = root[p1];
-        else
-            root[p1] = root[p2];
+        int a = find(p1);
+        int b = find(p2);
+        if(a != b)
+            root[b] = a;
     }
 }
 
