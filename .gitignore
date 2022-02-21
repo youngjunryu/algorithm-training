@@ -34,4 +34,6 @@ rebel.xml
 
 # Test
 src/Test.java
-src/Test2.java
+
+#SWEA
+src/SWEA
