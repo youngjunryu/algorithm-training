@@ -130,7 +130,6 @@ class UserSolution13471 {
     }
 
     // time 시간 까지의 작업을 한다.
-
     void execute(int time) {
         while (!pq.isEmpty() && pq.peek().endTime <= time) {
             int now = pq.peek().endTime;
