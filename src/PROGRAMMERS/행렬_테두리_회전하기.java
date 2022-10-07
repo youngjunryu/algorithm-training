@@ -6,12 +6,12 @@ import java.util.List;
 public class 행렬_테두리_회전하기 {
   static int[][] map;
 
-  public int[] solution(int rows, int columns, int[][] queries) {
+  public static int[] solution(int rows, int columns, int[][] queries) {
     init(rows, columns);
     return getAnswer(queries);
   }
 
-  private int[] getAnswer(int[][] queries) {
+  private static int[] getAnswer(int[][] queries) {
     List<Integer> answerList = new ArrayList<>();
     int[] answer;
 
@@ -40,7 +40,7 @@ public class 행렬_테두리_회전하기 {
     return answer;
   }
 
-  private int turnMap(int x, int y, int xx, int yy) {
+  private static int turnMap(int x, int y, int xx, int yy) {
     int temp = map[x][y];
     int min = temp;
 
@@ -69,7 +69,7 @@ public class 행렬_테두리_회전하기 {
     return min;
   }
 
-  private void init(int rows, int columns) {
+  private static void init(int rows, int columns) {
     map = new int[rows][columns];
     int num = 1;
     for (int i = 0; i < rows; i++) {
