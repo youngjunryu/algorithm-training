@@ -1,3 +1,5 @@
+package LEETCODE;
+
 import java.util.*;
 
 class Unique_Paths {
