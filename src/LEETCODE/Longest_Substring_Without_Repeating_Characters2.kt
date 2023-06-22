@@ -1,5 +1,7 @@
 package LEETCODE
 
+import kotlin.math.max
+
 class Longest_Substring_Without_Repeating_Characters2 {
     fun lengthOfLongestSubstring(s: String): Int {
         var max: Int = 0
@@ -11,7 +13,7 @@ class Longest_Substring_Without_Repeating_Characters2 {
                 sub = sub.substring(idx + 1) + s[i]
             } else {
                 sub += s[i]
-                max = Math.max(sub.length, max)
+                max = max(sub.length, max)
             }
             println(sub)
         }
