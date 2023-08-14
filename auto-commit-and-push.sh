@@ -10,4 +10,4 @@ COMMIT_MESSAGE="Solve: $PROBLEM_NAME"
 
 git commit -m "$COMMIT_MESSAGE"
 
-git push origin main
+git push -u origin master
