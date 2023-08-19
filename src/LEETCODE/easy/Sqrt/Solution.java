@@ -2,22 +2,27 @@ package LeetCode.easy.Sqrt;
 
 class Solution {
   public int mySqrt(int x) {
-    if (x == 0) {
-      return 0;
+    if (x == 0 || x == 1) {
+      return x;
     }
 
-    int first = 1, last = x;
-    while (first <= last) {
-      int mid = first + (last - first) / 2;
-      if (mid == x / mid) {
+    int left = 1;
+    int right = x;
+
+    while (left <= right) {
+      int mid = left + (right - left) / 2;
+
+      System.out.println(left + " " + right);
+
+      if ((long) mid * mid < (long) x) {
+        left = mid + 1;
+      } else if (mid * mid == x) {
         return mid;
-      } else if (mid > x / mid) {
-        last = mid - 1;
       } else {
-        first = mid + 1;
+        right = mid - 1;
       }
     }
 
-    return last;
+    return right;
   }
 }
