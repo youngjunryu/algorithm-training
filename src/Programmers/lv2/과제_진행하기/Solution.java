@@ -6,55 +6,47 @@ class Solution {
   public String[] solution(String[][] plans) {
     String[] result = new String[plans.length];
     int idx = 0;
-    Stack<Node> s = new Stack<>();
+    Queue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(o -> o.start));
+    Stack<Node> stack = new Stack<>();
 
-    // plan 정렬
-    Arrays.sort(plans, (a, b) -> {
-      int[] aStart = splitStartTime(a[1]);
-      int[] bStart = splitStartTime(b[1]);
-      return aStart[0] != bStart[0] ? aStart[0] - bStart[0] : aStart[1] - bStart[1];
-    });
+    for (String[] p : plans) {
+      int[] splitStartTime = splitStartTime(p[1]);
+      pq.add(new Node(p[0], splitStartTime[0] * 60 + splitStartTime[1], Integer.parseInt(p[2])));
+    }
 
-    int[] nowTime = splitStartTime(plans[0][1]);
-    s.push(new Node(plans[0][0], nowTime[0], nowTime[1], Integer.parseInt(plans[0][2])));
-    for (int i = 1; i < plans.length; i++) {
-      Node now = s.pop();
-      String[] next = plans[i];
-      int[] nextTime = splitStartTime(next[1]);
-      int k = 0;
-      if (nextTime[1] <= nowTime[1]) {
-        k += nextTime[1] + 60 - nowTime[1];
-        k += (nextTime[0] - 1 - nowTime[0]) * 60;
-      } else {
-        k += nextTime[1] - nowTime[1];
-        k += (nextTime[0] - nowTime[0]) * 60;
-      }
+    stack.add(pq.poll());
+    int nowTime = stack.peek().start;
 
-      if (k > now.leftTime) { // 진행중이던 과제가 먼저 끝났다면
-        result[idx++] = now.name;
-        i--;
-        if (nowTime[1] + now.leftTime >= 60) {
-          nowTime[0]++;
-          nowTime[1] = nowTime[1] + now.leftTime - 60;
+    while (!pq.isEmpty()) {
+      Node next = pq.poll();
+      Node cur = stack.peek();
+
+      int time = next.start - nowTime;
+      if (time == cur.playtime) {
+        stack.pop();
+        result[idx++] = cur.name;
+        stack.add(next);
+        nowTime = next.start;
+      } else if (time < cur.playtime) {
+        cur.updatePlaytime(cur.playtime - time);
+        nowTime = next.start;
+        stack.add(next);
+      } else if (time > cur.playtime) {
+        stack.pop();
+        result[idx++] = cur.name;
+        if (!stack.isEmpty()) {
+          nowTime += cur.playtime;
+          pq.add(next);
         } else {
-          nowTime[1] = nowTime[1] + now.leftTime;
+          nowTime = next.start;
+          stack.add(next);
         }
-      } else if (k == now.leftTime) {
-        result[idx++] = now.name;
-        s.push(new Node(next[0], nextTime[0], nextTime[1], Integer.parseInt(next[2])));
-        nowTime[0] = nextTime[0];
-        nowTime[1] = nextTime[1];
-      } else if (k < now.leftTime) {
-        now.updateLeftTime(now.leftTime - k);
-        s.push(now);
-        s.push(new Node(next[0], nextTime[0], nextTime[1], Integer.parseInt(next[2])));
-        nowTime[0] = nextTime[0];
-        nowTime[1] = nextTime[1];
       }
     }
 
-    while (!s.isEmpty()) {
-      result[idx++] = s.pop().name;
+    while(!stack.isEmpty()) {
+      Node cur = stack.pop();
+      result[idx++] = cur.name;
     }
 
     return result;
@@ -67,19 +59,17 @@ class Solution {
 
   class Node {
     String name;
-    int startHour;
-    int startMinute;
-    int leftTime;
+    int start;
+    int playtime;
 
-    public Node(String name, int h, int m, int t) {
+    public Node(String name, int start, int playtime) {
       this.name = name;
-      this.startHour = h;
-      this.startMinute = m;
-      this.leftTime = t;
+      this.start = start;
+      this.playtime = playtime;
     }
 
-    public void updateLeftTime(int t) {
-      this.leftTime = t;
+    public void updatePlaytime(int playtime) {
+      this.playtime = playtime;
     }
   }
 }
