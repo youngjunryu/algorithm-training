@@ -1,5 +1,7 @@
 package LeetCode.medium.Sort_Colors;
 
+import java.util.HashMap;
+
 class Solution {
   public void sortColors(int[] nums) {
     HashMap<Integer, Integer> map = new HashMap<>();
