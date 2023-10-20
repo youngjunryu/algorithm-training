@@ -34,7 +34,7 @@ rebel.xml
 
 # Test
 src/Test.java
-src/TEST/
+src/templates/test/
 
 #Archiving.SWEA
 src/Archiving/SWEA/
