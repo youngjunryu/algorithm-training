@@ -24,9 +24,14 @@ public class Main {
 
       int result = 0;
       for (int i = 0; i < 20; i++) {
-        for (int j = i; j < 20; j++) {
-          if (list.get(i) > list.get(j)) {
-            result += 1;
+        for (int j = 0; j < i; j++) {
+          int a = list.get(i);
+          int b = list.get(j);
+          if (a < b) {
+            result += i - j;
+            list.add(j, a);
+            list.remove(i + 1);
+            break;
           }
         }
       }
