@@ -11,7 +11,7 @@ public class Solution {
       int mid = (left + right) / 2;
 
       if (windowCheck(mid, nums, target)) {
-        mn = left;
+        mn = mid;
         right = mid - 1;
       } else {
         left = mid + 1;
@@ -45,4 +45,3 @@ public class Solution {
     return false;
   }
 }
-
