@@ -1,23 +1,19 @@
 package LeetCode.contest.weekly_398.Sum_of_Digit_Differences_of_All_Pairs;
 
-import java.util.Arrays;
-
 class Solution2 {
 
-  public int minimumAddedCoins(int[] coins, int target) {
-    Arrays.sort(coins);
+  public long sumDigitDifferences(int[] nums) {
+    long result = 0;
+    int n = nums.length;
+    int len = String.valueOf(nums[0]).length();
 
-    int idx = 0;
-    int max = 0;
-    int result = 0;
+    for (int i = 0; i < len; i++) {
+      int[] arr = new int[10];
 
-    while (max < target) {
-      if (idx < coins.length && coins[idx] <= max + 1) {
-        max = max + coins[idx];
-        idx++;
-      } else {
-        max = max + max + 1;
-        result++;
+      for (int j = 0; j < n; j++) {
+        int cur = (nums[j] + "").charAt(i) - '0';
+        arr[cur]++;
+        result += j + 1 - arr[cur];
       }
     }
 
