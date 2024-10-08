@@ -40,11 +40,15 @@ public class Main {
 
     int num = N;
     StringBuilder result = new StringBuilder();
-    result.append(num + " ");
+    result.append(num).append(" ");
 
     while (true) {
       num = trace[num];
-      result.append(num + " ");
+      if (num == 0) {
+        break;
+      }
+
+      result.append(num).append(" ");
       if (num == 1) {
         break;
       }
