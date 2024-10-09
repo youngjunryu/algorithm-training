@@ -24,10 +24,7 @@ public class Main {
       System.out.println(dp[N]);
     } else {
       for (int i = 3; i <= N; i++) {
-        dp[i] = 1;
-        for (int j = i - 2; j >= 1; j--) {
-          dp[i] += dp[j];
-        }
+        dp[i] = dp[i - 1] + dp[i - 2];
       }
 
       System.out.println(dp[N]);
@@ -57,5 +54,9 @@ public class Main {
 dp[1] = 1
 dp[2] = 2;
 n >= 3 : dp[n] = dp[n - 2] + dp[n - 3] .... d[1] + 1;
+
+dp[5]
+dp[4] = dp[2] + dp[1]
+dp[3] = dp[1]
 
  */
