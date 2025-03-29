@@ -32,7 +32,7 @@ public class Main {
 
     if (dp[k] == k + 1) {
       System.out.println(-1);
-      return
+      return;
     }
 
     System.out.println(dp[k]);
